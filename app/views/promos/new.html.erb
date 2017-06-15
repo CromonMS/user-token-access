@@ -1,0 +1,23 @@
+<%= link_to 'Home', root_path %>
+<br>
+<h2>New Promo</h2>
+<%= form_for @promo do |f| %>
+  <% if @promo.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize @promo.errors.count, "error" %> prohibited this promo from being created</h2>
+    </div>
+    <ul>
+      <% @promo.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+      <% end %>
+    </ul>
+    <% end %>
+<%= f.text_field :title, placeholder: 'title' %>
+<%= f.date_field :start_date, placeholder: 'start_date' %>
+<%= f.date_field :expiry_date, placeholder: 'expiry_date' %>
+  <%= f.fields_for :recipients do |pr| %>
+    <%= pr.text_field :name, placeholder: 'name' %>
+    <%= pr.text_field :email, placeholder: 'email' %>
+  <% end %>
+  <%= f.submit 'Submit' %>
+<% end %>

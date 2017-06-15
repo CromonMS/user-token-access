@@ -1,0 +1,18 @@
+<%= link_to 'new promo', new_promo_path %>
+<br>
+<%= link_to 'test denied - no token', '/promos/1/' %>
+<br>
+<% @promos.each do |promo| %>
+<h3><%= promo.title %></h3>
+<ul>
+  <li>ID: <%= promo.id %></li>
+  <li>Recipients: <%= promo.recipients.count %>
+    <% promo.promo_recipients.each do |pr| %>
+    <li><%= link_to "visit as #{pr.recipient.name}", promo_access_path(promo.id, pr.access_token) %></li>
+    <% end %>
+  </li>
+  <li>Start date: <%= promo.start_date %></li>
+  <li>Expiry date: <%= promo.expiry_date %></li>
+  <%= button_to 'Delete', promo_path(promo), method: :delete %>
+</ul>
+<% end %>
